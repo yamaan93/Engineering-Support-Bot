@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"python.pythonPath": "C:\\Users\\Ya\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
+		"[json]": {
+			
+
+			"editor.quickSuggestions": {
+				"strings": true
+			},
+			"editor.suggest.insertMode": "replace"
+		}
+	}
+}
