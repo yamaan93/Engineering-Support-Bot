@@ -28,9 +28,9 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # here enter the id of your google sheet
 SAMPLE_SPREADSHEET_ID_input = '1oQDgT7eO0zSD0EBQUZ7h7DzIM-84Slw91XDT7xFmzQc'
-SAMPLE_RANGE_NAME = 'A1:AA1000'
+SAMPLE_RANGE_NAME = 'Sheet2!A1:AA1000'
 
-def main():
+def get_googleSheet():
     global values_input, service
     creds = None
     if os.path.exists('token.pickle'):
@@ -57,7 +57,7 @@ def main():
     if not values_input: # and not values_expansion:
         print('No data found.')
 
-main()
+get_googleSheet()
 
 df=pd.DataFrame(values_input[1:], columns=values_input[0])
 
@@ -108,8 +108,26 @@ def read_schedule(self):
     #print(schedule)
 def read_sheets(self):
     print('your mom')
+    get_googleSheet()
+    global _business
+    global _physics
+    global _calculus
     global _statics
+    global _design
+    global _chemistry
+    global _materials
+    global _lin_alg
+    global _programming
     _statics = df["Statics"]
+    _business = df["Business"]
+    _physics = df["Physics"]
+    _calculus = df['Calculus']
+    _design = df["Design"]
+    _chemistry = df["Chemistry"]
+    _materials = df["Materials"]
+    _lin_alg = df["Linear Algebra"]
+    _programming = df["Programming"]
+    print(df)
     
     
 
@@ -129,7 +147,7 @@ class scheduleCommands(commands.Cog):
     
     @commands.command()
     async def weekly(self,ctx):
-        read_schedule(self)
+        read_sheets(self)
         embed=discord.Embed(title="Week 42069", color=0x9a6dbe)
         embed.add_field(name="Business:", value=f'{_business[0:9].to_string(index=False)}', inline=True)
         embed.add_field(name="Physics:", value=f'{_physics[0:9].to_string(index=False)}', inline=True)
