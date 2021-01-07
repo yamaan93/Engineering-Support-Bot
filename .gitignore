@@ -6,3 +6,5 @@ token.pickle
 launch.json
 settings.json
 .vscode
+.vscode/launch.json
+.vscode/settings.json
