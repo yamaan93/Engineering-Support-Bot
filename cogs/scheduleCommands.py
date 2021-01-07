@@ -10,6 +10,20 @@ from google.auth.transport.requests import Request
 import os
 import pickle
 
+
+schedule = None
+_business = None
+_physics = None
+_calculus =None 
+_statics = None
+_design = None
+_chemistry = None
+_materials = None
+_lin_alg = None
+_programming = None
+
+
+
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # here enter the id of your google sheet
@@ -47,6 +61,7 @@ main()
 
 df=pd.DataFrame(values_input[1:], columns=values_input[0])
 
+print(df)
 FLOAT_COLUMNS = ('Floats',)
 BOOLEAN_COLUMNS = ('Booleans',)
 
@@ -90,8 +105,15 @@ def read_schedule(self):
     _lin_alg = schedule["Linear Algebra"]
     _programming = schedule["Programming"]
     
-    print(schedule)
+    #print(schedule)
+def read_sheets(self):
+    print('your mom')
+    global _statics
+    _statics = df["Statics"]
     
+    
+
+      
 class scheduleCommands(commands.Cog):
     
     def __init__(self,client):
@@ -101,6 +123,7 @@ class scheduleCommands(commands.Cog):
     #events
     @commands.Cog.listener()
     async def on_ready(self):
+        #read_schedule(self)
         print('bot is ready')
     
     
@@ -123,7 +146,8 @@ class scheduleCommands(commands.Cog):
         
     @commands.command()
     async def statics(self,ctx):
-        read_schedule(self)
+        #read_schedule(self)
+        read_sheets(self)
         embed=discord.Embed(title="", color=0x9a6dbe)
         embed.add_field(name="Here's what you got to do:", value=f'{_statics[0:9].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)

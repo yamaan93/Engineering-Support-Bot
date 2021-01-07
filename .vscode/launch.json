@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "pythonPath": "C:\\Users\\Ya\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
+            "python": "C:\\Users\\Ya\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
 
         },
         
