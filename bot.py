@@ -51,6 +51,7 @@ async def reloadCogs(ctx):
         if filename.endswith('.py'):
             client.load_extension(f'cogs.{filename[:-3]}')
     print('cogs reloaded!')
+    await ctx.send('Cogs Reloaded!')
             
 
 

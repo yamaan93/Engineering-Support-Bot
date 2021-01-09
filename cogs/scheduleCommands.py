@@ -21,16 +21,17 @@ _chemistry = None
 _materials = None
 _lin_alg = None
 _programming = None
-
-
+values_input = None
+service = None
+current_week = None
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # here enter the id of your google sheet
 SAMPLE_SPREADSHEET_ID_input = '1oQDgT7eO0zSD0EBQUZ7h7DzIM-84Slw91XDT7xFmzQc'
-SAMPLE_RANGE_NAME = 'Sheet2!A1:AA1000'
 
-def get_googleSheet():
+
+def get_googleSheet(SAMPLE_RANGE_NAME):
     global values_input, service
     creds = None
     if os.path.exists('token.pickle'):
@@ -56,32 +57,21 @@ def get_googleSheet():
 
     if not values_input: # and not values_expansion:
         print('No data found.')
+    df = pd.DataFrame(values_input[1:], columns=values_input[0])
+    df.to_excel('current_schedule.xlsx')
+    return df
 
-get_googleSheet()
+#df= pd.DataFrame(values_input[1:], columns=values_input[0])
 
-df=pd.DataFrame(values_input[1:], columns=values_input[0])
 
-print(df)
-FLOAT_COLUMNS = ('Floats',)
-BOOLEAN_COLUMNS = ('Booleans',)
 
-def left_justified(df):
-    formatters = {}
 
-    # Pass a custom pattern to format(), based on
-    # type of data
-    for li in list(df.columns):
-        if li in FLOAT_COLUMNS:
-           form = "{{!s:<5}}".format()
-        elif li in BOOLEAN_COLUMNS:
-            form = "{{!s:<8}}".format()
-        else:
-            max = df[li].str.len().max()
-            form = "{{:<{}s}}".format(max)
-        formatters[li] = functools.partial(str.format, form)
 
-    return df.to_string(formatters=formatters, index=False)
-def read_schedule(self):
+
+def read_schedule(self, week):
+    global current_week
+    current_week = week
+    get_googleSheet(f'Week {current_week}!A1:AA1000')
     global schedule
     global _business
     global _physics
@@ -94,7 +84,7 @@ def read_schedule(self):
     global _programming
     
     
-    schedule = pd.read_excel("test.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['_'])
+    schedule = pd.read_excel("current_schedule.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['_'])
     _business = schedule["Business"]
     _physics = schedule["Physics"]
     _calculus = schedule['Calculus']
@@ -105,36 +95,18 @@ def read_schedule(self):
     _lin_alg = schedule["Linear Algebra"]
     _programming = schedule["Programming"]
     
-    #print(schedule)
-def read_sheets(self):
-    print('your mom')
-    get_googleSheet()
-    global _business
-    global _physics
-    global _calculus
-    global _statics
-    global _design
-    global _chemistry
-    global _materials
-    global _lin_alg
-    global _programming
-    _statics = df["Statics"]
-    _business = df["Business"]
-    _physics = df["Physics"]
-    _calculus = df['Calculus']
-    _design = df["Design"]
-    _chemistry = df["Chemistry"]
-    _materials = df["Materials"]
-    _lin_alg = df["Linear Algebra"]
-    _programming = df["Programming"]
-    print(df)
-    
-    
+
+def get_week():
+    global current_week
+    bruh = pd.read_excel("currentWeek.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['_'])
+    current_week = bruh.at[0,"Current week"]
+    print(f'current week: {current_week}')
 
       
 class scheduleCommands(commands.Cog):
     
     def __init__(self,client):
+        get_week()
         self.client = client
     
     
@@ -146,31 +118,116 @@ class scheduleCommands(commands.Cog):
     
     
     @commands.command()
-    async def weekly(self,ctx):
-        read_sheets(self)
+    async def weekly(self,ctx, week_number):
+        await ctx.channel.purge(limit =1)
+        read_schedule(self, week_number)
         embed=discord.Embed(title="Week 42069", color=0x9a6dbe)
-        embed.add_field(name="Business:", value=f'{_business[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Physics:", value=f'{_physics[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Calculus:", value=f'{_calculus[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Statics:", value=f'{_statics[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Design:", value=f'{_design[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Chemistry:", value=f'{_chemistry[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Materials:", value=f'{_materials[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Linear Algebra:", value=f'{_lin_alg[0:9].to_string(index=False)}', inline=True)
-        embed.add_field(name="Programming:", value=f'{_programming[0:9].to_string(index=False)}', inline=True)
+        embed.set_thumbnail(url="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png")
+        embed.add_field(name="Business:", value=f'{_business[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Physics:", value=f'{_physics[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Calculus:", value=f'{_calculus[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Statics:", value=f'{_statics[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Design:", value=f'{_design[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Chemistry:", value=f'{_chemistry[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Materials:", value=f'{_materials[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Linear Algebra:", value=f'{_lin_alg[0:9].to_string(index=False)}', inline=False)
+        embed.add_field(name="Programming:", value=f'{_programming[0:9].to_string(index=False)}', inline=False)
         await ctx.send(embed=embed)
         #await ctx.send(f'here is what you need to get done:\n```{schedule.to_string(index=False)}```')
         
-        
+    @commands.command()
+    async def setWeek(self,ctx,week):
+        global current_week
+        current_week = week  
+        d =  {'Current week': [current_week]} #creating a dictionary to make into a data frame to make into an excel file so  that
+        df = pd.DataFrame(data= d) #i can make it an excel file to read from so that the week will be stored even if the bot is turned off
+        df.to_excel('currentWeek.xlsx')
+    
     @commands.command()
     async def statics(self,ctx):
-        #read_schedule(self)
-        read_sheets(self)
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
         embed.add_field(name="Here's what you got to do:", value=f'{_statics[0:9].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)
-        #await ctx.send(f'here is what you need to get done:\n```{schedule.to_string(index=False)}```')
     
+    @commands.command()
+    async def business(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_business[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)
+    
+    @commands.command()
+    async def physics(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_physics[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)    
+    @commands.command()
+    async def calculus(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_calculus[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)  
+    @commands.command()
+    async def design(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_design[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)  
+    @commands.command()
+    async def chemistry(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_chemistry[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)  
+        
+    @commands.command()
+    async def materials(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_materials[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)  
+        
+    @commands.command()
+    async def lin(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_lin_alg[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)  
+    @commands.command()
+    async def programming(self,ctx):
+        global current_week
+        if current_week ==None:
+            await ctx.send('ERROR: Week not set')
+        read_schedule(self,current_week)
+        embed=discord.Embed(title="", color=0x9a6dbe)
+        embed.add_field(name="Here's what you got to do:", value=f'{_programming[0:9].to_string(index=False)}', inline=True)
+        await ctx.send(embed=embed)  
     @commands.command()
     async def read(self,ctx):
         read_schedule(self)
