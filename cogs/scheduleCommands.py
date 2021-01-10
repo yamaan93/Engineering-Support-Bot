@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import pandas as pd
-from tabulate import tabulate
 import functools
 
 from googleapiclient.discovery import build
