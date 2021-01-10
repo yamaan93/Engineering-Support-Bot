@@ -120,7 +120,7 @@ class scheduleCommands(commands.Cog):
     async def weekly(self,ctx, week_number):
         await ctx.channel.purge(limit =1)
         read_schedule(self, week_number)
-        embed=discord.Embed(title="Week 42069", color=0x9a6dbe)
+        embed=discord.Embed(title=f'Week: {current_week}', color=0x9a6dbe)
         embed.set_thumbnail(url="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png")
         embed.add_field(name="Business:", value=f'{_business[0:9].to_string(index=False)}', inline=False)
         embed.add_field(name="Physics:", value=f'{_physics[0:9].to_string(index=False)}', inline=False)
