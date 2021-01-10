@@ -149,7 +149,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_statics[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_statics[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)
     
     @commands.command()
@@ -178,7 +178,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_calculus[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_calculus[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)  
     @commands.command()
     async def design(self,ctx):
@@ -187,7 +187,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_design[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_design[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)  
     @commands.command()
     async def chemistry(self,ctx):
@@ -196,7 +196,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_chemistry[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_chemistry[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)  
         
     @commands.command()
@@ -206,7 +206,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_materials[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_materials[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)  
         
     @commands.command()
@@ -216,7 +216,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_lin_alg[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_lin_alg[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)  
     @commands.command()
     async def programming(self,ctx):
@@ -225,7 +225,7 @@ class scheduleCommands(commands.Cog):
             await ctx.send('ERROR: Week not set')
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
-        embed.add_field(name="Here's what you got to do:", value=f'{_programming[0:9].to_string(index=False)}', inline=True)
+        embed.add_field(name="Here's what you got to do:", value=f'{_programming[0:90].to_string(index=False)}', inline=True)
         await ctx.send(embed=embed)  
     @commands.command()
     async def read(self,ctx):
