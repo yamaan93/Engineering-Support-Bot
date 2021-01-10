@@ -84,6 +84,7 @@ def read_schedule(self, week):
     
     
     schedule = pd.read_excel("current_schedule.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['_'])
+    print(schedule)
     _business = schedule["Business"]
     _physics = schedule["Physics"]
     _calculus = schedule['Calculus']
