@@ -7,7 +7,7 @@ import os
 
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
-client = commands.Bot(command_prefix = '%', intents = intents)
+client = commands.Bot(command_prefix = '!', intents = intents)
 
 
 
@@ -45,7 +45,7 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 @client.command()
-async def reloadCogs(ctx):
+async def reload(ctx):
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             client.unload_extension(f'cogs.{filename[:-3]}')
