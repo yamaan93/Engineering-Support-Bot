@@ -84,7 +84,7 @@ def read_schedule(self, week):
     global _programming
     
     
-    schedule = pd.read_excel("current_schedule.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['_'])
+    schedule = pd.read_excel("current_schedule.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['\u200b'])
     #print(schedule)
     _business = schedule["Business"]
     _physics = schedule["Physics"]
@@ -95,6 +95,7 @@ def read_schedule(self, week):
     _materials = schedule["Materials"]
     _lin_alg = schedule["Linear Algebra"]
     _programming = schedule["Programming"]
+    print(_programming)
     
 
 def get_week():
