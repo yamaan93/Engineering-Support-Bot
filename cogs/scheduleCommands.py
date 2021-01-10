@@ -249,7 +249,7 @@ class scheduleCommands(commands.Cog):
         embed=discord.Embed(title="", color=0x9a6dbe)
         embed.add_field(name="Here's what you got to do:", value=f'{_programming[0:5].to_string(index=False)}', inline=False)
         embed.add_field(name='\u200b', value=f'{_programming[5:90].to_string(index=False)}', inline=False)
-        await ctx.send(f'{_programming[0:90].to_string(index=False)}')
+        await ctx.send(f'{_programming[0:20].to_string(index=False)}')
         await ctx.send(embed=embed)  
     @commands.command()
     async def read(self,ctx):
