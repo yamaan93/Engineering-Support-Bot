@@ -126,7 +126,7 @@ class scheduleCommands(commands.Cog):
         embed=discord.Embed(title=f'Week: {current_week}', color=0x9a6dbe)
         #embed.set_thumbnail(url="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png")
         embed.add_field(name="Business:", value=f'{_business[0:5].to_string(index=False)}', inline=False)
-        embed.add_field(name=".", value=f'{_business[5:90].to_string(index=False)}', inline=False)
+        embed.add_field(name="\u200b", value=f'{_business[5:90].to_string(index=False)}', inline=False)
         embed.add_field(name="Physics:", value=f'{_physics[0:5].to_string(index=False)}', inline=False)
         embed.add_field(name='\u200b', value=f'{_physics[5:90].to_string(index=False)}', inline=False)
         embed.add_field(name="Calculus:", value=f'{_calculus[0:5].to_string(index=False)}', inline=False)
@@ -216,7 +216,7 @@ class scheduleCommands(commands.Cog):
         read_schedule(self,current_week)
         embed=discord.Embed(title="", color=0x9a6dbe)
         embed.add_field(name="Here's what you got to do:", value=f'{_chemistry[0:5].to_string(index=False)}', inline=False)
-        embed.add_field(name="", value=f'{_chemistry[5:90].to_string(index=False)}', inline=False)
+        embed.add_field(name="\u200b", value=f'{_chemistry[5:90].to_string(index=False)}', inline=False)
         await ctx.send(embed=embed)  
         
     @commands.command()
