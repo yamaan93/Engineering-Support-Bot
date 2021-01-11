@@ -9,7 +9,7 @@ from google.auth.transport.requests import Request
 import os
 import pickle
 
-
+# TODO comment code properly
 schedule = None
 _business = None
 _physics = None
@@ -88,7 +88,6 @@ def read_schedule(self, week):
     
     
     schedule = pd.read_excel("current_schedule.xlsx", sheet_name="Sheet1",keep_default_na=False, na_values=['\u200b'])
-    
     #print(schedule)
     _business = schedule["Business"]
     _physics = schedule["Physics"]
@@ -99,7 +98,14 @@ def read_schedule(self, week):
     _materials = schedule["Materials"]
     _lin_alg = schedule["Linear Algebra"]
     _programming = schedule["Programming"]
-    print(_programming.to_string(index = False))
+    # TODO need to redo the way messages are formatting as currently they are relying on embeds as a crutch and its not really that flexible and kinda looks ugly 
+    #_programming = pd.Series(dtype="string")
+    #for x in range(schedule["Programming"].size):
+    #    _programming.at[x] = schedule.at[x,"Programming"].strip()
+    #   print(_programming.at[x])
+    
+    
+    #print(_programming.to_string(index = False))
     
 
 def get_week():
@@ -254,7 +260,11 @@ class scheduleCommands(commands.Cog):
         embed=discord.Embed(title="", color=0x9a6dbe)
         embed.add_field(name="Here's what you got to do:", value=f'{_programming[0:5].to_string(index=False)}', inline=False)
         embed.add_field(name='\u200b', value=f'{_programming[5:90].to_string(index=False)}', inline=False)
-        await ctx.send(f'{_programming[0:5].to_string(index=False)}')
+        #for x in range(_programming.size):
+        #    if _programming[x] != "" and _programming[x] != "NOTES:":
+        #        await ctx.send(f'```{_programming[x]}```')
+        #    if _programming[x] != "" and _programming[x] == "NOTES:":
+        #        await ctx.send(f'{_programming[x]}')
         await ctx.send(embed=embed)  
     @commands.command()
     async def read(self,ctx):
