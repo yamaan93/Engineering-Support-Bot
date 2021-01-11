@@ -158,6 +158,7 @@ class scheduleCommands(commands.Cog):
         #await ctx.send(f'here is what you need to get done:\n```{schedule.to_string(index=False)}```')
         
     @commands.command()
+    @commands.has_role('Leaders')
     async def setWeek(self,ctx,week):
         global current_week
         current_week = week  

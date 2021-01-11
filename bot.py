@@ -30,11 +30,13 @@ async def on_member_remove(member):
     print(f'{member} has left')
 
 @client.command()
+@commands.has_role('Leaders')
 async def load (ctx, extention):
     client.load_extension(f'cogs.{extention}')
     await ctx.send(f'{extention} was loaded')
 
 @client.command()
+@commands.has_role('Leaders')
 async def unload (ctx, extention):
     client.unload_extension(f'cogs.{extention}')
     await ctx.send(f'{extention} was unloaded')
@@ -45,6 +47,7 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 @client.command()
+@commands.has_role('Leaders')
 async def reload(ctx):
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
