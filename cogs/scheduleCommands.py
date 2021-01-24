@@ -10,6 +10,7 @@ import os
 import pickle
 
 # TODO comment code properly
+stats = {'Business':}
 schedule = None
 _business = None
 _physics = None
@@ -86,13 +87,16 @@ def get_googleSheet(SAMPLE_RANGE_NAME):
     if not values_input: # and not values_expansion:
         print('No data found.')
     df = pd.DataFrame(values_input[1:], columns=values_input[0])
+    df2 = df.set_index("Date")
     #print(df)
     df.to_excel('current_schedule.xlsx')
-    return df
+    return df2
 
 #df= pd.DataFrame(values_input[1:], columns=values_input[0])
 
 def getAnalytics():
+    analytics = get_googleSheet('analytics!A1:AA1000')
+    
     
 
 
@@ -301,6 +305,7 @@ class scheduleCommands(commands.Cog):
     async def testprint(self,ctx):
         today = date.today()
         print(today)
+        getAnalytics()
         #read_schedule(self,14)
         #export_googleSheet('analytics!A1:AA1000',schedule)
         
