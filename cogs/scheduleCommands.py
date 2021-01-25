@@ -10,6 +10,7 @@ import os
 import pickle
 
 # TODO comment code properly
+
 schedule = None
 _business = None
 _physics = None
@@ -95,6 +96,10 @@ def get_googleSheet(SAMPLE_RANGE_NAME):
 
 def getAnalytics():
     analytics = get_googleSheet('analytics!A1:AA1000')
+    print(analytics['Business']["2021-01-24"])
+    
+    
+    
     
     
 
@@ -303,7 +308,7 @@ class scheduleCommands(commands.Cog):
     @commands.command()
     async def testprint(self,ctx):
         today = date.today()
-        print(today)
+        #print(today)
         getAnalytics()
         #read_schedule(self,14)
         #export_googleSheet('analytics!A1:AA1000',schedule)
