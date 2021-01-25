@@ -10,7 +10,6 @@ import os
 import pickle
 
 # TODO comment code properly
-stats = {'Business':}
 schedule = None
 _business = None
 _physics = None

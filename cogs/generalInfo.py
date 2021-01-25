@@ -6,7 +6,7 @@ import functools
 beef = None
 def get_initial_beef():
         global beef
-        beef = pd.read_excel("beef.xlsx",sheet_name="Sheet1",keep_default_na=False, na_values=['\u200b'])
+        beef = pd.read_excel("beef.xlsx",sheet_name="Sheet1",keep_default_na=False, na_values=['\u200b'], index_col= None)
 class generalInfo(commands.Cog):
     
     def __init__(self,client):
@@ -20,7 +20,7 @@ class generalInfo(commands.Cog):
     @commands.command()  
     async def beefCounter(self,ctx):
         global beef
-        get_initial_beef
+        get_initial_beef()
         embed=discord.Embed(title="Beef Counter", description="track da beef")
         embed.set_thumbnail(url="https://cdn.britannica.com/68/143268-050-917048EA/Beef-loin.jpg")
         for x in range(beef["counter"].size):
@@ -31,10 +31,12 @@ class generalInfo(commands.Cog):
     @commands.has_role('Leaders')     
     async def addBeef(self,ctx, perp1, perp2):
         global beef
+        print(beef)
         newBeef = {'counter': [beef["counter"].size +1], 'participant 1': [perp1], 'participant 2': [perp2]}
-        newBeefDF = pd.DataFrame(data = newBeef)
+        newBeefDF = pd.DataFrame(data = newBeef,)
         beef = beef.append(newBeefDF)
-        beef.to_excel('beef.xlsx')
+        print(beef)
+        beef.to_excel('beef.xlsx', index = False)
 
         
 def setup(client):
