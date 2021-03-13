@@ -39,7 +39,7 @@ class generalInfo(commands.Cog):
         beef.to_excel('beef.xlsx', index = False)
     @commands.command()
     async def toMcChicken(self,ctx,value):
-        await ctx.send('That equals',value/5.39,'McChickens!')
+        await ctx.send(f'That is equivilant to {value/5.39} McChickens! Maybe it\'s time to reconsider your financial choics.')
 
         
 def setup(client):
