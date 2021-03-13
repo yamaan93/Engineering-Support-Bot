@@ -40,7 +40,9 @@ class generalInfo(commands.Cog):
     @commands.command()
     async def toMcChicken(self,ctx,value):
         #print(int(value)/5.39)
-        await ctx.send(f'That is equivilant to {int(value)/5.39} McChickens! Maybe it\'s time to reconsider your financial choics.')
+        cost = float(value)/5.39
+        print(cost)
+        await ctx.send(f'That is equivilant to {cost} McChickens! Maybe it\'s time to reconsider your financial choics.')
 
         
 def setup(client):
