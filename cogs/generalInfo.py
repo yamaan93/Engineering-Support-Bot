@@ -42,7 +42,7 @@ class generalInfo(commands.Cog):
         #print(int(value)/5.39)
         cost = float(value)/5.39
         print(cost)
-        await ctx.send(f'That is equivilant to {cost} McChickens! Maybe it\'s time to reconsider your financial choices.')
+        await ctx.send(f'That is equivilant to {round(cost,2)} McChickens! Maybe it\'s time to reconsider your financial choices.')
 
         
 def setup(client):
