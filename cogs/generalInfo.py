@@ -40,7 +40,7 @@ class generalInfo(commands.Cog):
     @commands.command()
     async def toMcChicken(self,ctx,value):
         #print(int(value)/5.39)
-        cost = float(value)/5.39
+        cost = float(value)/6.19
         print(cost)
         await ctx.send(f'That is equivilant to {round(cost,2)} McChickens! Maybe it\'s time to reconsider your financial choices.')
 
