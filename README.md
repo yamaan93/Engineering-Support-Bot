@@ -18,6 +18,7 @@ By entering a command "!course-name" the bot outputs the tasklist for any given 
 
 ### Financial Advice
 All students have been faced with the age old problem. Is spending x amount of money worth it? Fortunately Support Bot can easily answer that question by telling you how many McChickens you could by for any given amount of money.
+
 <img src="https://user-images.githubusercontent.com/25854486/181807878-d461ecb1-60d6-44b4-93e7-74baac67f36d.png"  width="500">
 
 
