@@ -1,7 +1,7 @@
 
 botkey.txt
 credentials.json
-New Text Document.txt
+client_secret.json
 token.pickle
 launch.json
 settings.json
@@ -9,10 +9,9 @@ settings.json
 .vscode/launch.json
 .vscode/settings.json
 current_schedule.xlsx
-cogs/__pycache__/generalInfo.cpython-38.pyc
-cogs/__pycache__/generalInfo.cpython-38.pyc
-cogs/__pycache__/scheduleCommands.cpython-38.pyc
-cogs/__pycache__/scheduleCommands.cpython-38.pyc
-cogs/__pycache__/
+__pycache__/
+*.pyc
 currentWeek.xlsx
 runbot.bat
+venv/
+env/
