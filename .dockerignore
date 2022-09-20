@@ -1,0 +1,9 @@
+/.github
+/.vscode
+/.idea
+/env
+/venv
+*.md
+*.example.py
+**/__pycache__
+*.code-workspace

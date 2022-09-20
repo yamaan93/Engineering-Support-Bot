@@ -3,11 +3,9 @@ from discord.ext import commands
 import pandas as pd
 import functools
 
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow,Flow
-from google.auth.transport.requests import Request
+from googleapiclient import discovery
+from google.oauth2 import service_account
 import os
-import pickle
 
 # TODO comment code properly
 schedule = None
@@ -27,40 +25,31 @@ pd.set_option("display.max_colwidth", None)
 pd.set_option("display.max_seq_items", 100000)
 pd.set_option("display.html.table_schema", True)
 
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+SCOPES = [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/spreadsheets"
+        ]
 
 # here enter the id of your google sheet
-SAMPLE_SPREADSHEET_ID_input = '1oQDgT7eO0zSD0EBQUZ7h7DzIM-84Slw91XDT7xFmzQc'
+SPREADSHEET_ID = '1oQDgT7eO0zSD0EBQUZ7h7DzIM-84Slw91XDT7xFmzQc'
 
 
-def get_googleSheet(SAMPLE_RANGE_NAME):
-    global values_input, service
-    creds = None
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES) # here enter the name of your downloaded JSON file
-            creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('sheets', 'v4', credentials=creds)
+def get_googleSheet(range_name):
+    # Authenticate with Google
+    secrets_file = os.path.join(os.getcwd(), "client_secret.json")
+    credentials = service_account.Credentials.from_service_account_file(secrets_file, scopes=SCOPES)
+    service = discovery.build('sheets', 'v4', credentials=credentials)
 
     # Call the Sheets API
     sheet = service.spreadsheets()
-    result_input = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID_input,
-                                range=SAMPLE_RANGE_NAME).execute()
+    result_input = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
+                                range=range_name).execute()
     values_input = result_input.get('values', [])
 
-    if not values_input: # and not values_expansion:
+    if not values_input:
         print('No data found.')
     df = pd.DataFrame(values_input[1:], columns=values_input[0])
-    #print(df)
     df.to_excel('current_schedule.xlsx')
     return df
 
